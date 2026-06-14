@@ -1,3 +1,3 @@
-from routers.items import router
+from routers.plants import router
 
 __all__ = ["router"]
