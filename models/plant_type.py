@@ -11,5 +11,7 @@ class PlantType(Base):
     type_name = Column(String, nullable=False)
     id_category = Column(String, ForeignKey("plant_categories.category_id"))
 
-    # "one" side — this type belongs to one category
+
     category = relationship("PlantCategory", back_populates="types")
+    plants = relationship("Plant", back_populates="plant_type")
+  
