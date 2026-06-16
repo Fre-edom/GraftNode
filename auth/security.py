@@ -1,16 +1,26 @@
 from fastapi.security import OAuth2PasswordBearer
+from passlib.context import CryptContext
+from datetime import datetime, timedelta, timezone
+from jose import jwt
+from database import setting
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 def hash_password(password:str) -> str:
-    pass
+    return pwd_context.hash(password)
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    pass
+    return pwd_context.verify(plain_password, hashed_password)
 
 def create_access_token(data: dict) -> str:
-    pass
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes=setting.access_token_expire_minutes)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, setting.secret_key, algorithm=setting.algorithm)
+
 
 def decode_access_token(token: str) -> dict:
-    pass
+    return jwt.decode(token, setting.secret_key, algorithms=[setting.algorithm])
