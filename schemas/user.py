@@ -1,11 +1,9 @@
 from pydantic import BaseModel, ConfigDict
-from datetime import date
+from datetime import datetime
 
 class UserCreate(BaseModel):
-    user_id: str
     email: str
     password: str
-    date_created: date
     user_type: str | None = None
 
 class UserRead(BaseModel):
@@ -13,7 +11,7 @@ class UserRead(BaseModel):
 
     user_id: str
     email: str
-    date_created: date
+    date_created: datetime
     user_type: str | None = None
 
 

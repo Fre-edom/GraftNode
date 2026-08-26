@@ -8,9 +8,9 @@ class Settings(BaseSettings):
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
-    class Config:
-        env_file = ".env"
-
+    # extra="ignore" -> tolerate unrelated keys in .env instead of crashing
+    # (same pattern as library_backend).
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
         
 setting = Settings()

@@ -5,7 +5,11 @@ from models import User, PlantCategory, PlantType, Plant
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Plant_OS", description="A Plant Management System", version="1.0.0")
+app = FastAPI(
+    title="GraftNode",
+    description="GraftNode — plant-care & genetics module (part of the Rhizome platform)",
+    version="1.0.0",
+)
 app.include_router(router)
 
 
